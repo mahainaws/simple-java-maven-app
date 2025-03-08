@@ -2,13 +2,12 @@
 
 echo "Installing Maven-built Java application into local repository..."
 set -x
-mvn jar:jar install:install help:evaluate -Dexpression=project.artifactId -q -DforceStdout
-mvn help:evaluate -Dexpression=project.version -q -DforceStdout
+mvn jar:jar install:install
 set +x
 
-# Extract project name and version safely
-NAME=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
-VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+# Extract project name and version safely (removes color codes)
+NAME=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout | tr -d '\r')
+VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr -d '\r')
 
 echo "Project Name: $NAME"
 echo "Project Version: $VERSION"
