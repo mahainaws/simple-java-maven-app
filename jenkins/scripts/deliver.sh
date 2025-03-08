@@ -5,9 +5,9 @@ set -x
 mvn jar:jar install:install
 set +x
 
-# Extract project name and version safely (removes color codes)
-NAME=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout | tr -d '\r')
-VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr -d '\r')
+# Extract project name and version safely (removes extra output)
+NAME=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout | tr -d '\r' | tr -d '[:space:]')
+VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr -d '\r' | tr -d '[:space:]')
 
 echo "Project Name: $NAME"
 echo "Project Version: $VERSION"
